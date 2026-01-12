@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  lordicon: ^1.0.3
 
 dev_dependencies:
   flutter_test:
@@ -17,3 +18,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+#Assets
+  assets:
+    - assets/avatar.json
+    - assets/inbox.json
+    - assets/message.json
+    - assets/shopping-bag.json
