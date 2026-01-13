@@ -71,7 +71,7 @@ class OliveListTile extends StatelessWidget {
               title,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontWeight: FontWeight.w600),
+              style: const TextStyle(fontWeight: FontWeight.normal),
             ),
           ),
           if (badgeText != null) ...[
