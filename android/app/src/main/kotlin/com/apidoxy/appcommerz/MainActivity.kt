@@ -1,4 +1,4 @@
-package com.apidoxy.olive_app
+package com.apidoxy.appcommerz
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -7,14 +7,25 @@ environment:
   sdk: ^3.10.7
 
 dependencies:
+  connectivity_plus: ^7.0.0
+  dio: ^5.9.0
   flutter:
     sdk: flutter
   lordicon: ^1.0.3
+  path_provider: ^2.1.2
+  sembast: ^3.8.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/launcher_icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
 
 flutter:
   uses-material-design: true
@@ -25,3 +36,9 @@ flutter:
     - assets/inbox.json
     - assets/message.json
     - assets/shopping-bag.json
+    - assets/notification.json
+    - assets/settings.json
+    - assets/default_avatar.png
+    - assets/launcher_icon.png
+    - assets/product_cover.png
+    - assets/customer_cover.png
