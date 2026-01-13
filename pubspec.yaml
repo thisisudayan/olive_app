@@ -11,6 +11,7 @@ dependencies:
   dio: ^5.9.0
   flutter:
     sdk: flutter
+  icons_launcher: ^3.0.0
   lordicon: ^1.0.3
   path_provider: ^2.1.2
   sembast: ^3.8.6
@@ -20,12 +21,44 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^6.0.0
   flutter_launcher_icons: ^0.14.4
+  flutter_native_splash: ^2.4.4
 
-flutter_launcher_icons:
-  android: "launcher_icon"
-  ios: true
+icons_launcher:
   image_path: "assets/launcher_icon.png"
-  min_sdk_android: 21 # android min sdk min:16, default 21
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
+
+
+flutter_native_splash:
+  fullscreen: true
+
+  # Use background IMAGE instead of color (required for gradient)
+  color: "#363C44"
+
+  # Center logo
+  image: assets/splash_logo.png
+
+  # Image alignment
+  android_gravity: center
+  ios_content_mode: center
+  web_image_mode: center
+
+  # --------------------
+  # ANDROID 12+
+  # --------------------
+  android_12:
+    # Android 12 does NOT support gradient backgrounds
+    # Use a neutral color close to your design
+    color: "#363C44"
+
+    # Center logo (will be clipped into a circle)
+    image: assets/splash_logo.png
+
+
+
 
 flutter:
   uses-material-design: true
@@ -39,6 +72,7 @@ flutter:
     - assets/notification.json
     - assets/settings.json
     - assets/default_avatar.png
-    - assets/launcher_icon.png
     - assets/product_cover.png
     - assets/customer_cover.png
+    - assets/launcher_icon.png
+    - assets/splash_logo.png
