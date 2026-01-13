@@ -3,6 +3,7 @@ import 'package:olive_app/data/models/customer_model.dart';
 import 'package:olive_app/data/repositories/customer_repository.dart';
 import 'package:olive_app/features/posts/view/widgets/olive_list_tile.dart';
 import 'package:olive_app/main.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class CustomersTab extends StatefulWidget {
   const CustomersTab({super.key});
@@ -78,12 +79,24 @@ class _CustomersTabState extends State<CustomersTab> {
               ),
             ],
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                _isLoading ? 'Loading...' : 'Customers',
-                style: const TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+              title: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                switchInCurve: Curves.easeOut,
+                switchOutCurve: Curves.easeIn,
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  final offsetAnimation = Tween<Offset>(
+                    begin: const Offset(0, 0.5), // bottom → top
+                    end: Offset.zero,
+                  ).animate(animation);
+                  return SlideTransition(
+                    position: offsetAnimation,
+                    child: FadeTransition(opacity: animation, child: child),
+                  );
+                },
+                child: Text(
+                  _isLoading ? "Loading..." : "Customers",
+                  key: ValueKey(_isLoading ? "loading" : "customers"),
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
                 ),
               ),
               centerTitle: true,
