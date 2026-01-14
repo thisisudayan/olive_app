@@ -8,6 +8,7 @@ class OliveListTile extends StatelessWidget {
   final List<String>? imageUrls;
   final Widget? trailing;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
   final String? badgeText;
   final String? noteText;
 
@@ -18,6 +19,7 @@ class OliveListTile extends StatelessWidget {
     this.imageUrls,
     this.trailing,
     this.onTap,
+    this.onLongPress,
     this.badgeText,
     this.noteText,
   });
@@ -26,6 +28,7 @@ class OliveListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
+      onLongPress: onLongPress,
       leading: SquircleImageGroup(
         imageUrls: imageUrls,
         fallbackImageUrl: "assets/default_avatar.png",
@@ -42,7 +45,7 @@ class OliveListTile extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.normal),
             ),
           ),
-          OliverBadge(badgeText: badgeText)
+          OliverBadge(badgeText: badgeText),
         ],
       ),
       subtitle: Row(

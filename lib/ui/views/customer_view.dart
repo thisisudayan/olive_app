@@ -102,6 +102,43 @@ class _CustomersTabState extends State<CustomersTab> {
                       subtitle: item.email ?? item.phone ?? "No contact info",
                       imageUrls: item.avatar != null ? [item.avatar!] : [],
                       badgeText: item.status,
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text("Customer Tapped"),
+                            content: Text(
+                              "Name: ${item.name}\nID: ${item.customerId}",
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: const Text("Close"),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      onLongPress: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text("Customer Long Pressed"),
+                            content: Text(
+                              "Full details for ${item.name}:\n"
+                              "Email: ${item.email ?? 'N/A'}\n"
+                              "Phone: ${item.phone ?? 'N/A'}\n"
+                              "Status: ${item.status}",
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: const Text("Close"),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   ),
                 );
