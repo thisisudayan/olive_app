@@ -41,6 +41,10 @@ class EmptyData extends StatelessWidget {
               elevation: 0,
               shadowColor: Colors.transparent,
               shape: RoundedRectangleBorder(
+                side: const BorderSide(
+                  color: Color(0xFF363C44),
+                  width: 4,
+                ),
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
@@ -51,6 +55,7 @@ class EmptyData extends StatelessWidget {
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 1.2,
+                color: Color(0xFF363C44),
               ),
             ),
           ),
