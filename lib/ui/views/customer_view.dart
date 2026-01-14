@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:olive_app/data/models/customer_model.dart';
 import 'package:olive_app/ui/widgets/empty_data.dart';
 import 'package:olive_app/ui/widgets/error.dart';
@@ -120,43 +122,22 @@ class _CustomersTabState extends State<CustomersTab> {
                       subtitle: item.email ?? item.phone ?? "No contact info",
                       imageUrls: item.avatar != null ? [item.avatar!] : [],
                       badgeText: item.status,
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text("Customer Tapped"),
-                            content: Text(
-                              "Name: ${item.name}\nID: ${item.customerId}",
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.pop(context),
-                                child: const Text("Close"),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                      onLongPress: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text("Customer Long Pressed"),
-                            content: Text(
-                              "Full details for ${item.name}:\n"
-                              "Email: ${item.email ?? 'N/A'}\n"
-                              "Phone: ${item.phone ?? 'N/A'}\n"
-                              "Status: ${item.status}",
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.pop(context),
-                                child: const Text("Close"),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
+                      endActions: [
+                        SlidableAction(
+                          onPressed: (context) {
+                            // toggle status
+                            // call api
+                            // update ui
+                            
+                          },
+                          backgroundColor: item.status == "active"
+                              ? Colors.red
+                              : Colors.green,
+                          foregroundColor: Colors.white,
+                          icon: Icon(LucideIcons.circleSlash).icon, 
+                          label: item.status == "active" ? "Ban" : "Unban",
+                        ),
+                      ],
                     ),
                   ),
                 );
