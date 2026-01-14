@@ -75,4 +75,3 @@ class CustomerViewModel extends ChangeNotifier {
     }
   }
 }
- 
