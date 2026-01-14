@@ -64,30 +64,45 @@ class _CustomersTabState extends State<CustomersTab> {
             body: StreamBuilder<List<CustomerModel>>(
               stream: _viewModel.watchCustomers(),
               builder: (context, snapshot) {
-                if (_viewModel.errorMessage != null) {
+                final customers = snapshot.data ?? [];
+                if (_viewModel.errorMessage != null && customers.isEmpty) {
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 40.0),
                       child: ErrorView(
                         title: "Ooops!",
                         description:
-                            "It seems there is something wrong with your internet connection. Please connect to the internet and start APCOMMERZ again.",
+                            "We hit a snag. Refresh or come back shortly.",
                         onRetry: _viewModel.syncData,
+                        retryText: "Refresh",
+                        maxWidth: 220,
                       ),
                     ),
                   );
                 }
 
-                final customers = snapshot.data ?? [];
-
-                
-
                 if (_viewModel.isLoading && customers.isEmpty) {
-                  return const SizedBox.shrink();
+                  return EmptyData(
+                    title: "Customers Await",
+                    description:
+                        "Start by acquiring a customer to see your list come alive.",
+                    image: "assets/no_customer.png",
+                    maxWidth: 220,
+                    retryText: "Refresh",
+                    onRetry: _viewModel.syncData,
+                  );
                 }
 
-                if (_viewModel.isLoading && customers.isEmpty) {
-                  return const Center(child: Text("You have no customer"));
+                if (customers.isEmpty) {
+                  return EmptyData(
+                    title: "Customers Await",
+                    description:
+                        "Start by acquiring a customer to see your list come alive.",
+                    image: "assets/no_customer.png",
+                    maxWidth: 220,
+                    retryText: "Refresh",
+                    onRetry: _viewModel.syncData,
+                  );
                 }
 
                 return NotificationListener<ScrollNotification>(

@@ -39,6 +39,7 @@ flutter:
     - assets/default_avatar.png
     - assets/product_cover.png
     - assets/customer_cover.png
+    - assets/no_customer.png
   fonts:
     - family: RobotoCondensed
       fonts:

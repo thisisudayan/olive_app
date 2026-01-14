@@ -52,7 +52,6 @@ class CustomerViewModel extends ChangeNotifier {
     }
 
     _isLoading = true;
-    _errorMessage = null;
     _currentPage = 1;
     _hasMore = true;
     notifyListeners();
@@ -62,6 +61,7 @@ class CustomerViewModel extends ChangeNotifier {
       _hasMore =
           (response.pagination?.page ?? 0) < (response.pagination?.pages ?? 0);
       _isLoading = false;
+      _errorMessage = null;
       notifyListeners();
     } catch (e) {
       // If we have local data already, don't show an error just because the sync failed
