@@ -8,13 +8,18 @@ class CustomerLocalDataSource {
 
   Future<Database> get _db async => await SembastDb.instance.database;
 
-  Future<void> saveCustomers(List<CustomerModel> customers) async {
+  Future<void> saveCustomers(
+    List<CustomerModel> customers, {
+    bool clear = false,
+  }) async {
     final database = await _db;
     await database.transaction((txn) async {
-      // Clear existing customers for simplicity in this example
-      await _store.delete(txn);
+      if (clear) {
+        await _store.delete(txn);
+      }
       for (var customer in customers) {
-        await _store.add(txn, customer.toJson());
+        // Use customerId as key for upsert
+        await _store.record(customer.customerId).put(txn, customer.toJson());
       }
     });
   }

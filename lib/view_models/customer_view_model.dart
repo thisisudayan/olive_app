@@ -10,10 +10,14 @@ class CustomerViewModel extends ChangeNotifier {
   StreamSubscription? _connectivitySubscription;
 
   bool _isLoading = false;
+  bool _isLoadingMore = false;
   bool _isOnline = true;
   String? _errorMessage;
+  int _currentPage = 1;
+  bool _hasMore = true;
 
   bool get isLoading => _isLoading;
+  bool get isLoadingMore => _isLoadingMore;
   bool get isOnline => _isOnline;
   String? get errorMessage => _errorMessage;
 
@@ -49,10 +53,14 @@ class CustomerViewModel extends ChangeNotifier {
 
     _isLoading = true;
     _errorMessage = null;
+    _currentPage = 1;
+    _hasMore = true;
     notifyListeners();
 
     try {
-      await _repository.refreshCustomers();
+      final response = await _repository.refreshCustomers(page: _currentPage);
+      _hasMore =
+          (response.pagination?.page ?? 0) < (response.pagination?.pages ?? 0);
       _isLoading = false;
       notifyListeners();
     } catch (e) {
@@ -63,6 +71,28 @@ class CustomerViewModel extends ChangeNotifier {
         _errorMessage =
             "Failed to load customers. Please check your connection.";
       }
+      notifyListeners();
+    }
+  }
+
+  Future<void> loadMore() async {
+    if (_isLoadingMore || !_hasMore || !_isOnline) return;
+
+    _isLoadingMore = true;
+    _errorMessage = null;
+    notifyListeners();
+
+    try {
+      final response = await _repository.loadMoreCustomers(
+        page: _currentPage + 1,
+      );
+      _currentPage++;
+      _hasMore =
+          (response.pagination?.page ?? 0) < (response.pagination?.pages ?? 0);
+      _isLoadingMore = false;
+      notifyListeners();
+    } catch (e) {
+      _isLoadingMore = false;
       notifyListeners();
     }
   }

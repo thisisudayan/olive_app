@@ -10,13 +10,25 @@ class CustomerRepository {
     return _localDataSource.watchCustomers();
   }
 
-  Future<void> refreshCustomers() async {
+  Future<CustomerResponseModel> refreshCustomers({
+    int page = 1,
+    int limit = 10,
+    bool clear = true,
+  }) async {
     try {
-      final response = await _api.fetchCustomers();
-      await _localDataSource.saveCustomers(response.data);
+      final response = await _api.fetchCustomers(page: page, limit: limit);
+      await _localDataSource.saveCustomers(response.data, clear: clear);
+      return response;
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future<CustomerResponseModel> loadMoreCustomers({
+    required int page,
+    int limit = 10,
+  }) async {
+    return refreshCustomers(page: page, limit: limit, clear: false);
   }
 
   Future<List<CustomerModel>> getCustomers() async {

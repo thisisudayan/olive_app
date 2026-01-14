@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:olive_app/data/models/customer_model.dart';
+import 'package:olive_app/ui/widgets/empty_data.dart';
 import 'package:olive_app/ui/widgets/network_exposer.dart';
 import 'package:olive_app/ui/widgets/olive_list_tile.dart';
 import 'package:olive_app/ui/widgets/generic_list_view.dart';
@@ -66,56 +67,11 @@ class _CustomersTabState extends State<CustomersTab> {
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            "assets/network_error.png",
-                            width: 160,
-                            height: 160,
-                          ),
-                          const SizedBox(height: 20),
-                          const Text(
-                            "Ooops!",
-                            style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF363C44),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
+                      child: EmptyData(
+                        title: "Ooops!",
+                        description:
                             "It seems there is something wrong with your internet connection. Please connect to the internet and start APCOMMERZ again.",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.grey[600],
-                              height: 1.5,
-                            ),
-                          ),
-                          const SizedBox(height: 40),
-                          SizedBox(
-                            height: 40,
-                            child: OutlinedButton(
-                              style: FilledButton.styleFrom(
-                                elevation: 0,
-                                shadowColor: Colors.transparent,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                              ),
-                              onPressed: _viewModel.syncData,
-                              child: const Text(
-                                "TRY AGAIN",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 1.2,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                        onRetry: _viewModel.syncData,
                       ),
                     ),
                   );
@@ -131,13 +87,22 @@ class _CustomersTabState extends State<CustomersTab> {
                   return const Center(child: Text("You have no customer"));
                 }
 
-                return GenericListView<CustomerModel>(
-                  items: customers,
-                  itemBuilder: (context, item) => OliveListTile(
-                    title: item.name,
-                    subtitle: item.email ?? item.phone ?? "No contact info",
-                    imageUrls: [?item.avatar],
-                    badgeText: item.status,
+                return NotificationListener<ScrollNotification>(
+                  onNotification: (ScrollNotification scrollInfo) {
+                    if (scrollInfo.metrics.pixels >=
+                        scrollInfo.metrics.maxScrollExtent - 200) {
+                      _viewModel.loadMore();
+                    }
+                    return true;
+                  },
+                  child: GenericListView<CustomerModel>(
+                    items: customers,
+                    itemBuilder: (context, item) => OliveListTile(
+                      title: item.name,
+                      subtitle: item.email ?? item.phone ?? "No contact info",
+                      imageUrls: item.avatar != null ? [item.avatar!] : [],
+                      badgeText: item.status,
+                    ),
                   ),
                 );
               },
