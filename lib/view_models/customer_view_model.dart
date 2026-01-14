@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:olive_app/core/services/connectivity_service.dart';
 import 'package:olive_app/data/models/customer_model.dart';
 import 'package:olive_app/data/repositories/customer_repository.dart';
 
 class CustomerViewModel extends ChangeNotifier {
   final CustomerRepository _repository = CustomerRepository();
-  final Connectivity _connectivity = Connectivity();
+  final ConnectivityService _connectivityService = ConnectivityService();
   StreamSubscription? _connectivitySubscription;
 
   bool _isLoading = false;
@@ -21,21 +21,13 @@ class CustomerViewModel extends ChangeNotifier {
     _initConnectivity();
   }
 
-  Future<void> _initConnectivity() async {
-    final result = await _connectivity.checkConnectivity();
-    _updateConnectionStatus(result);
-    _connectivitySubscription = _connectivity.onConnectivityChanged.listen((
-      results,
-    ) {
-      if (results.isNotEmpty) {
-        _updateConnectionStatus(results);
-      }
-    });
-  }
-
-  void _updateConnectionStatus(List<ConnectivityResult> results) {
-    _isOnline = results.any((result) => result != ConnectivityResult.none);
-    notifyListeners();
+  void _initConnectivity() {
+    _isOnline = _connectivityService.isOnline;
+    _connectivitySubscription = _connectivityService.onConnectivityChanged
+        .listen((isOnline) {
+          _isOnline = isOnline;
+          notifyListeners();
+        });
   }
 
   @override

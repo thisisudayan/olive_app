@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:olive_app/data/models/customer_model.dart';
+import 'package:olive_app/ui/widgets/network_exposer.dart';
 import 'package:olive_app/ui/widgets/olive_list_tile.dart';
 import 'package:olive_app/ui/widgets/generic_list_view.dart';
 import 'package:olive_app/view_models/customer_view_model.dart';
@@ -34,21 +35,11 @@ class _CustomersTabState extends State<CustomersTab> {
                 pinned: true,
                 expandedHeight: 160.0,
                 actions: [
-                  IconButton(
-                    onPressed: _viewModel.isLoading
-                        ? null
-                        : _viewModel.syncData,
-                    icon: Icon(
-                      !_viewModel.isOnline
-                          ? Icons.cloud_off
-                          : (_viewModel.isLoading
-                                ? Icons.cloud_download
-                                : Icons.cloud),
-                      size: 20,
-                      color: !_viewModel.isOnline
-                          ? Colors.grey
-                          : (_viewModel.isLoading ? Colors.blue : Colors.green),
-                    ),
+                  NetworkExposer(
+                    state: _viewModel.isLoading
+                        ? NetworkState.loading
+                        : NetworkState.upToDate,
+                    onTap: _viewModel.syncData,
                   ),
                 ],
                 flexibleSpace: FlexibleSpaceBar(
@@ -145,11 +136,8 @@ class _CustomersTabState extends State<CustomersTab> {
                   itemBuilder: (context, item) => OliveListTile(
                     title: item.name,
                     subtitle: item.email ?? item.phone ?? "No contact info",
-                    imageUrl: item.avatar,
-                    badgeText: item.status.toUpperCase(),
-                    badgeColor: item.status == 'active'
-                        ? Colors.green
-                        : Colors.grey,
+                    imageUrls: [?item.avatar],
+                    badgeText: item.status,
                   ),
                 );
               },

@@ -45,10 +45,8 @@ class ProductsTab extends StatelessWidget {
           itemBuilder: (context, item) => OliveListTile(
             title: item['title']!,
             subtitle: item['subtitle']!,
-            imageUrl: item['imageUrl'],
+            imageUrls: [item['imageUrl']!],
             badgeText: item['badge'],
-            badgeColor: Colors.green,
-            noteText: '10 min ago',
           ),
         ),
       ),
