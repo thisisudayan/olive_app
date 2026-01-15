@@ -7,6 +7,7 @@ environment:
   sdk: ^3.10.7
 
 dependencies:
+  app_links: ^6.4.1
   carousel_slider: ^5.1.1
   connectivity_plus: ^7.0.0
   dio: ^5.9.0
@@ -19,6 +20,7 @@ dependencies:
   marquee: ^2.3.0
   path_provider: ^2.1.2
   sembast: ^3.8.6
+  supabase_flutter: ^2.12.0
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +47,7 @@ flutter:
     - assets/no_customer.png
     - assets/google.png
     - assets/github.png
+    - assets/banner_image_1.png
   fonts:
     - family: RobotoCondensed
       fonts:

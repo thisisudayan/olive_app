@@ -3,7 +3,6 @@ class StoreModel {
   final String name;
   final RoleModel role;
   final String status;
-
   final DateTime lastUpdate;
   final InvitationModel? invitation;
 
@@ -12,7 +11,6 @@ class StoreModel {
     required this.name,
     required this.role,
     required this.status,
-
     required this.lastUpdate,
     this.invitation,
   });
@@ -23,7 +21,6 @@ class StoreModel {
       name: json['store_name'],
       role: RoleModel.fromJson(json['role']),
       status: json['store_status'],
-
       lastUpdate: DateTime.parse(json['updated_at']),
       invitation: json['invitation'] != null
           ? InvitationModel.fromJson(json['invitation'])
@@ -37,7 +34,7 @@ class StoreModel {
       'store_name': name,
       'role': role.toJson(),
       'store_status': status,
-      'updated_at': lastUpdate,
+      'updated_at': lastUpdate.toIso8601String(),
       'invitation': invitation?.toJson(),
     };
   }

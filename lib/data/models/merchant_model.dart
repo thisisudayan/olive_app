@@ -1,11 +1,11 @@
-class UserModel {
+class MerchantModel {
   final String id;
   final String? name;
   final String email;
   final String? avatar;
   final String? gender;
 
-  UserModel({
+  MerchantModel({
     required this.id,
     this.name,
     required this.email,
@@ -14,8 +14,8 @@ class UserModel {
   });
 
   /// Supabase response → Model
-  factory UserModel.fromSupabase(Map<String, dynamic> json) {
-    return UserModel(
+  factory MerchantModel.fromSupabase(Map<String, dynamic> json) {
+    return MerchantModel(
       id: json['id'],
       name: json['user_metadata']?['name'] ??'',
       email: json['email'],
@@ -33,8 +33,8 @@ class UserModel {
         'gender': gender,
       };
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
+  factory MerchantModel.fromJson(Map<String, dynamic> json) {
+    return MerchantModel(
       id: json['id'],
       name: json['name'],
       email: json['email'],
