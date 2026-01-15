@@ -93,6 +93,7 @@ class CustomerViewModel extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       _isLoadingMore = false;
+      _errorMessage = "Failed to load more customers.";
       notifyListeners();
     }
   }

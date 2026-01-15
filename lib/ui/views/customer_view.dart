@@ -128,13 +128,12 @@ class _CustomersTabState extends State<CustomersTab> {
                             // toggle status
                             // call api
                             // update ui
-                            
                           },
                           backgroundColor: item.status == "active"
                               ? Colors.red
                               : Colors.green,
                           foregroundColor: Colors.white,
-                          icon: Icon(LucideIcons.circleSlash).icon, 
+                          icon: Icon(LucideIcons.circleSlash).icon,
                           label: item.status == "active" ? "Ban" : "Unban",
                         ),
                       ],

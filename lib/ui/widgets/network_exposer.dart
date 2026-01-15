@@ -37,7 +37,7 @@ class NetworkExposer extends StatelessWidget {
               currentIcon = const SpinningIcon(key: ValueKey('loading'));
               break;
             case NetworkState.error:
-              currentIcon = const Icon(
+              currentIcon = Icon(
                 LucideIcons.info,
                 key: ValueKey('error'),
                 size: 20,

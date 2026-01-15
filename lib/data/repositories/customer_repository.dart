@@ -23,6 +23,7 @@ class CustomerRepository {
       rethrow;
     }
   }
+  
 
   Future<CustomerResponseModel> loadMoreCustomers({
     required int page,
