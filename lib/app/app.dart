@@ -80,88 +80,82 @@ class _MainAppState extends State<MainApp> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'RobotoCondensed', useMaterial3: true),
-      home: SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.black,
-          body: ClipRRect(
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            ),
-            child: Container(
-              color: Colors.white,
-              child: TabBarView(
-                controller: _tabController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  const ProductsTab(),
-                  const CustomersTab(),
-                  const CustomersTab(),
-                  const CustomersTab(),
-                  const SettingsTab(),
-                ],
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+        ),
+        child: Container(
+          color: Colors.white,
+          child: TabBarView(
+            controller: _tabController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              const ProductsTab(),
+              const CustomersTab(),
+              const CustomersTab(),
+              const CustomersTab(),
+              const SettingsTab(),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.zero,
+        color: Colors.black,
+        child: TabBar(
+          onTap: _onTabTapped,
+          controller: _tabController,
+          dividerHeight: 0,
+          dividerColor: Colors.transparent,
+          indicator: TabIndicator(),
+          splashFactory: NoSplash.splashFactory,
+          isScrollable: false,
+          labelPadding: const EdgeInsets.symmetric(vertical: 8),
+          tabs: [
+            Tab(
+              icon: IconViewer(
+                controller: _productsController,
+                height: 24,
+                width: 24,
+                colorize: const Color.fromRGBO(255, 255, 255, 1),
               ),
             ),
-          ),
-          bottomNavigationBar: Container(
-            padding: EdgeInsets.zero,
-            color: Colors.black,
-            child: TabBar(
-              onTap: _onTabTapped,
-              controller: _tabController,
-              dividerHeight: 0,
-              dividerColor: Colors.transparent,
-              indicator: TabIndicator(),
-              splashFactory: NoSplash.splashFactory,
-              isScrollable: false,
-              labelPadding: const EdgeInsets.symmetric(vertical: 8),
-              tabs: [
-                Tab(
-                  icon: IconViewer(
-                    controller: _productsController,
-                    height: 24,
-                    width: 24,
-                    colorize: const Color.fromRGBO(255, 255, 255, 1),
-                  ),
-                ),
-                Tab(
-                  icon: IconViewer(
-                    controller: _customersController,
-                    height: 24,
-                    width: 24,
-                    colorize: const Color.fromRGBO(255, 255, 255, 1),
-                  ),
-                ),
-                Tab(
-                  icon: IconViewer(
-                    controller: _ordersController,
-                    height: 24,
-                    width: 24,
-                    colorize: const Color.fromRGBO(255, 255, 255, 1),
-                  ),
-                ),
-                Tab(
-                  icon: IconViewer(
-                    controller: _notificationsController,
-                    height: 24,
-                    width: 24,
-                    colorize: const Color.fromRGBO(255, 255, 255, 1),
-                  ),
-                ),
-                Tab(
-                  icon: IconViewer(
-                    controller: _settingsController,
-                    height: 24,
-                    width: 24,
-                    colorize: const Color.fromRGBO(255, 255, 255, 1),
-                  ),
-                ),
-              ],
+            Tab(
+              icon: IconViewer(
+                controller: _customersController,
+                height: 24,
+                width: 24,
+                colorize: const Color.fromRGBO(255, 255, 255, 1),
+              ),
             ),
-          ),
+            Tab(
+              icon: IconViewer(
+                controller: _ordersController,
+                height: 24,
+                width: 24,
+                colorize: const Color.fromRGBO(255, 255, 255, 1),
+              ),
+            ),
+            Tab(
+              icon: IconViewer(
+                controller: _notificationsController,
+                height: 24,
+                width: 24,
+                colorize: const Color.fromRGBO(255, 255, 255, 1),
+              ),
+            ),
+            Tab(
+              icon: IconViewer(
+                controller: _settingsController,
+                height: 24,
+                width: 24,
+                colorize: const Color.fromRGBO(255, 255, 255, 1),
+              ),
+            ),
+          ],
         ),
       ),
     );

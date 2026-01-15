@@ -7,6 +7,7 @@ environment:
   sdk: ^3.10.7
 
 dependencies:
+  carousel_slider: ^5.1.1
   connectivity_plus: ^7.0.0
   dio: ^5.9.0
   flutter:
@@ -15,6 +16,7 @@ dependencies:
   flutter_slidable: ^4.0.3
   lordicon: ^1.0.3
   lucide_icons_flutter: ^3.1.9
+  marquee: ^2.3.0
   path_provider: ^2.1.2
   sembast: ^3.8.6
 
@@ -41,6 +43,8 @@ flutter:
     - assets/product_cover.png
     - assets/customer_cover.png
     - assets/no_customer.png
+    - assets/google.png
+    - assets/github.png
   fonts:
     - family: RobotoCondensed
       fonts:
