@@ -45,6 +45,8 @@ class OliverBadge extends StatelessWidget {
         return Colors.grey;
       case 'pending':
         return Colors.orange;
+      case 'invited':
+        return Colors.orangeAccent;
       default:
         return Colors.grey;
     }
